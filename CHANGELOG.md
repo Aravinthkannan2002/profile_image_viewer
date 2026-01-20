@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fixed demo GIF URL to use absolute GitHub raw URL for pub.dev compatibility
+
 ## 1.0.1
 
 - Added demo GIF to README

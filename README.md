@@ -7,7 +7,7 @@
 A customizable, WhatsApp-style profile image viewer for Flutter with pinch-to-zoom, swipe-to-dismiss gestures, Hero animations, image gallery, and screenshot protection.
 
 <p align="center">
-  <img src="screenshots/demo.gif" alt="Profile Image Viewer Demo" width="280"/>
+  <img src="https://raw.githubusercontent.com/Aravinthkannan2002/profile_image_viewer/main/screenshots/demo.gif" alt="Profile Image Viewer Demo" width="280"/>
 </p>
 
 ## Features
