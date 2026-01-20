@@ -1,0 +1,36 @@
+PODS:
+  - Flutter (1.0.0)
+  - screen_protector (1.4.12):
+    - Flutter
+    - ScreenProtectorKit (= 1.4.5)
+  - ScreenProtectorKit (1.4.5)
+  - sqflite_darwin (0.0.4):
+    - Flutter
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - screen_protector (from `.symlinks/plugins/screen_protector/ios`)
+  - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
+
+SPEC REPOS:
+  trunk:
+    - ScreenProtectorKit
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  screen_protector:
+    :path: ".symlinks/plugins/screen_protector/ios"
+  sqflite_darwin:
+    :path: ".symlinks/plugins/sqflite_darwin/darwin"
+
+SPEC CHECKSUMS:
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  screen_protector: f2657b57580f0fb79281c82cb649414e859ba602
+  ScreenProtectorKit: 322ed190203835593ef4ef40be24442060d7900f
+  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
+
+PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e
+
+COCOAPODS: 1.16.2

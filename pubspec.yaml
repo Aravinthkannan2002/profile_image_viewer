@@ -1,0 +1,31 @@
+name: profile_image_viewer
+description: A customizable, WhatsApp-style profile image viewer with pinch-to-zoom, swipe-to-dismiss, Hero animations, gallery mode, screenshot protection, and 6+ theme presets.
+version: 1.0.0
+homepage: https://github.com/Aravinthkannan2002/profile_image_viewer
+repository: https://github.com/Aravinthkannan2002/profile_image_viewer
+issue_tracker: https://github.com/Aravinthkannan2002/profile_image_viewer/issues
+
+topics:
+  - image-viewer
+  - gallery
+  - photo-view
+  - profile
+  - zoom
+
+environment:
+  sdk: ^3.0.0
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cached_network_image: ^3.3.1
+  photo_view: ^0.15.0
+  screen_protector: ^1.4.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
