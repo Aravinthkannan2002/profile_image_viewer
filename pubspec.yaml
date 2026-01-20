@@ -1,6 +1,6 @@
 name: profile_image_viewer
 description: A customizable, WhatsApp-style profile image viewer with pinch-to-zoom, swipe-to-dismiss, Hero animations, gallery mode, screenshot protection, and 6+ theme presets.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/Aravinthkannan2002/profile_image_viewer
 repository: https://github.com/Aravinthkannan2002/profile_image_viewer
 issue_tracker: https://github.com/Aravinthkannan2002/profile_image_viewer/issues

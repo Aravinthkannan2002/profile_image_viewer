@@ -1,3 +1,9 @@
+## 1.0.1
+
+- Added demo GIF to README
+- Added Empty Placeholder feature demo to example app
+- Updated documentation
+
 ## 1.0.0
 
 ### Features
