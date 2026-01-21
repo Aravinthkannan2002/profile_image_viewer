@@ -1,3 +1,18 @@
+## 1.1.0
+
+### Added
+- `titleStyle` - Custom text style for app bar title
+- `subtitleStyle` - Custom text style for app bar subtitle
+- `backIcon` - Custom back button widget (supports SVG icons)
+- `editIcon` - Custom edit button widget (supports SVG icons)
+- `shareIcon` - Custom share button widget (supports SVG icons)
+- `saveIcon` - Custom save/download button widget (supports SVG icons)
+- `iconColor` - Color for default Material icons in app bar (defaults to white)
+
+### Notes
+- All new parameters are optional with backward-compatible defaults
+- No migration required for existing users
+
 ## 1.0.2
 
 - Fixed demo GIF URL to use absolute GitHub raw URL for pub.dev compatibility

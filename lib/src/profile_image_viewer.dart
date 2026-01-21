@@ -806,14 +806,14 @@ class _ProfileImageViewerState extends State<ProfileImageViewer>
             IconButton(
               icon: Icon(
                 _showInfo ? Icons.info : Icons.info_outline,
-                color: Colors.white,
+                color: config.iconColor,
               ),
               onPressed: () => setState(() => _showInfo = !_showInfo),
               tooltip: 'Image info',
             ),
           if (config.enableRotation)
             IconButton(
-              icon: const Icon(Icons.rotate_right, color: Colors.white),
+              icon: Icon(Icons.rotate_right, color: config.iconColor),
               onPressed: _rotateImage,
               tooltip: 'Rotate image',
             ),
@@ -821,13 +821,13 @@ class _ProfileImageViewerState extends State<ProfileImageViewer>
               config.showRotationResetButton &&
               _rotationAngle != 0)
             IconButton(
-              icon: const Icon(Icons.refresh, color: Colors.white),
+              icon: Icon(Icons.refresh, color: config.iconColor),
               onPressed: _resetRotation,
               tooltip: 'Reset rotation',
             ),
           if (widget.onSaveTap != null)
             IconButton(
-              icon: const Icon(Icons.download, color: Colors.white),
+              icon: config.saveIcon ?? Icon(Icons.download, color: config.iconColor),
               onPressed: () {
                 _setResult('save');
                 widget.onSaveTap!();
@@ -836,7 +836,7 @@ class _ProfileImageViewerState extends State<ProfileImageViewer>
             ),
           if (widget.onEditTap != null)
             IconButton(
-              icon: const Icon(Icons.edit, color: Colors.white),
+              icon: config.editIcon ?? Icon(Icons.edit, color: config.iconColor),
               onPressed: () {
                 _setResult('edit');
                 widget.onEditTap!();
@@ -845,7 +845,7 @@ class _ProfileImageViewerState extends State<ProfileImageViewer>
             ),
           if (widget.onShareTap != null)
             IconButton(
-              icon: const Icon(Icons.share, color: Colors.white),
+              icon: config.shareIcon ?? Icon(Icons.share, color: config.iconColor),
               onPressed: () {
                 _setResult('share');
                 widget.onShareTap!();
@@ -862,7 +862,7 @@ class _ProfileImageViewerState extends State<ProfileImageViewer>
       leading: widget.leading ??
           (widget.showBackButton
               ? IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  icon: config.backIcon ?? Icon(Icons.arrow_back, color: config.iconColor),
                   onPressed: _close,
                   tooltip: 'Go back',
                 )
@@ -873,12 +873,12 @@ class _ProfileImageViewerState extends State<ProfileImageViewer>
         children: [
           Text(
             widget.title,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
+            style: config.titleStyle ?? const TextStyle(color: Colors.white, fontSize: 18),
           ),
           if (widget.subtitle != null)
             Text(
               widget.subtitle!,
-              style: TextStyle(
+              style: config.subtitleStyle ?? TextStyle(
                 color: Colors.white.withValues(alpha: 0.7),
                 fontSize: 12,
               ),

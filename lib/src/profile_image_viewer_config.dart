@@ -182,6 +182,28 @@ class ProfileImageViewerConfig {
   /// Semantic label for accessibility.
   final String? semanticLabel;
 
+  /// Custom text style for the title in app bar.
+  final TextStyle? titleStyle;
+
+  /// Custom text style for the subtitle in app bar.
+  final TextStyle? subtitleStyle;
+
+  /// Custom back icon widget (e.g., SvgPicture).
+  final Widget? backIcon;
+
+  /// Custom edit icon widget (e.g., SvgPicture).
+  final Widget? editIcon;
+
+  /// Custom share icon widget (e.g., SvgPicture).
+  final Widget? shareIcon;
+
+  /// Custom save/download icon widget (e.g., SvgPicture).
+  final Widget? saveIcon;
+
+  /// Color for default app bar icons (back, edit, share, save).
+  /// Only applies when custom icon widgets are not provided.
+  final Color iconColor;
+
   /// Analytics callback for tracking events.
   final AnalyticsCallback? onAnalyticsEvent;
 
@@ -258,6 +280,13 @@ class ProfileImageViewerConfig {
     this.cacheKey,
     this.maxCacheAge,
     this.semanticLabel,
+    this.titleStyle,
+    this.subtitleStyle,
+    this.backIcon,
+    this.editIcon,
+    this.shareIcon,
+    this.saveIcon,
+    this.iconColor = Colors.white,
     this.onAnalyticsEvent,
     this.appBarBuilder,
     this.loadingBuilder,
@@ -338,6 +367,13 @@ class ProfileImageViewerConfig {
     String? cacheKey,
     Duration? maxCacheAge,
     String? semanticLabel,
+    TextStyle? titleStyle,
+    TextStyle? subtitleStyle,
+    Widget? backIcon,
+    Widget? editIcon,
+    Widget? shareIcon,
+    Widget? saveIcon,
+    Color? iconColor,
     AnalyticsCallback? onAnalyticsEvent,
     PreferredSizeWidget? Function(BuildContext context, String title)?
         appBarBuilder,
@@ -404,6 +440,13 @@ class ProfileImageViewerConfig {
       cacheKey: cacheKey ?? this.cacheKey,
       maxCacheAge: maxCacheAge ?? this.maxCacheAge,
       semanticLabel: semanticLabel ?? this.semanticLabel,
+      titleStyle: titleStyle ?? this.titleStyle,
+      subtitleStyle: subtitleStyle ?? this.subtitleStyle,
+      backIcon: backIcon ?? this.backIcon,
+      editIcon: editIcon ?? this.editIcon,
+      shareIcon: shareIcon ?? this.shareIcon,
+      saveIcon: saveIcon ?? this.saveIcon,
+      iconColor: iconColor ?? this.iconColor,
       onAnalyticsEvent: onAnalyticsEvent ?? this.onAnalyticsEvent,
       appBarBuilder: appBarBuilder ?? this.appBarBuilder,
       loadingBuilder: loadingBuilder ?? this.loadingBuilder,
