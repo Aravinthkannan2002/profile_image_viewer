@@ -165,6 +165,9 @@ class ProfileImageGallery extends StatefulWidget {
   /// Callback when save action is tapped.
   final void Function(int index)? onSaveTap;
 
+  /// Callback when info action is tapped.
+  final void Function(int index)? onInfoTap;
+
   /// Callback when page changes.
   final void Function(int index)? onPageChanged;
 
@@ -195,6 +198,7 @@ class ProfileImageGallery extends StatefulWidget {
     this.onEditTap,
     this.onShareTap,
     this.onSaveTap,
+    this.onInfoTap,
     this.onPageChanged,
     this.config = const ProfileImageViewerConfig(),
     this.leading,
@@ -213,6 +217,7 @@ class ProfileImageGallery extends StatefulWidget {
     void Function(int index)? onEditTap,
     void Function(int index)? onShareTap,
     void Function(int index)? onSaveTap,
+    void Function(int index)? onInfoTap,
     void Function(int index)? onPageChanged,
     ProfileImageViewerConfig config = const ProfileImageViewerConfig(),
     Widget? leading,
@@ -231,6 +236,7 @@ class ProfileImageGallery extends StatefulWidget {
           onEditTap: onEditTap,
           onShareTap: onShareTap,
           onSaveTap: onSaveTap,
+          onInfoTap: onInfoTap,
           onPageChanged: onPageChanged,
           config: config,
           leading: leading,
@@ -252,6 +258,7 @@ class ProfileImageGallery extends StatefulWidget {
     void Function(int index)? onEditTap,
     void Function(int index)? onShareTap,
     void Function(int index)? onSaveTap,
+    void Function(int index)? onInfoTap,
     void Function(int index)? onPageChanged,
     ProfileImageViewerConfig config = const ProfileImageViewerConfig(),
     Widget? leading,
@@ -274,6 +281,7 @@ class ProfileImageGallery extends StatefulWidget {
           onEditTap: onEditTap,
           onShareTap: onShareTap,
           onSaveTap: onSaveTap,
+          onInfoTap: onInfoTap,
           onPageChanged: onPageChanged,
           config: config,
           leading: leading,
@@ -400,7 +408,14 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
     final provider = _getImageProvider(image);
 
     if (provider != null && mounted) {
-      precacheImage(provider, context).catchError((_) {});
+      precacheImage(
+        provider,
+        context,
+        onError: (exception, stackTrace) {
+          // Silently ignore precache errors (e.g., 403 from expired URLs)
+          // The image will still load when viewed, just not pre-cached
+        },
+      );
     }
   }
 
@@ -759,14 +774,23 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
             IconButton(
               icon: Icon(
                 _isSlideshow ? Icons.pause : Icons.play_arrow,
-                color: Colors.white,
+                color: config.iconColor,
               ),
               onPressed: _toggleSlideshow,
               tooltip: _isSlideshow ? 'Pause slideshow' : 'Start slideshow',
             ),
+          if (widget.onInfoTap != null)
+            IconButton(
+              icon: config.infoIcon ?? Icon(Icons.info_outline, color: config.iconColor),
+              onPressed: () {
+                _setResult('info');
+                widget.onInfoTap!(_currentIndex);
+              },
+              tooltip: 'Image info',
+            ),
           if (widget.onSaveTap != null)
             IconButton(
-              icon: const Icon(Icons.download, color: Colors.white),
+              icon: config.saveIcon ?? Icon(Icons.download, color: config.iconColor),
               onPressed: () {
                 _setResult('save');
                 widget.onSaveTap!(_currentIndex);
@@ -775,7 +799,7 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
             ),
           if (widget.onEditTap != null)
             IconButton(
-              icon: const Icon(Icons.edit, color: Colors.white),
+              icon: config.editIcon ?? Icon(Icons.edit, color: config.iconColor),
               onPressed: () {
                 _setResult('edit');
                 widget.onEditTap!(_currentIndex);
@@ -784,7 +808,7 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
             ),
           if (widget.onShareTap != null)
             IconButton(
-              icon: const Icon(Icons.share, color: Colors.white),
+              icon: config.shareIcon ?? Icon(Icons.share, color: config.iconColor),
               onPressed: () {
                 _setResult('share');
                 widget.onShareTap!(_currentIndex);
@@ -801,7 +825,7 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
       leading: widget.leading ??
           (widget.showBackButton
               ? IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  icon: config.backIcon ?? Icon(Icons.arrow_back, color: config.iconColor),
                   onPressed: _close,
                   tooltip: 'Go back',
                 )
@@ -812,12 +836,12 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
         children: [
           Text(
             _currentTitle,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
+            style: config.titleStyle ?? const TextStyle(color: Colors.white, fontSize: 18),
           ),
           if (_currentImage.subtitle != null)
             Text(
               _currentImage.subtitle!,
-              style: TextStyle(
+              style: config.subtitleStyle ?? TextStyle(
                 color: Colors.white.withValues(alpha: 0.7),
                 fontSize: 12,
               ),

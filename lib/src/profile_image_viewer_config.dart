@@ -200,6 +200,9 @@ class ProfileImageViewerConfig {
   /// Custom save/download icon widget (e.g., SvgPicture).
   final Widget? saveIcon;
 
+  /// Custom info icon widget (e.g., SvgPicture).
+  final Widget? infoIcon;
+
   /// Color for default app bar icons (back, edit, share, save).
   /// Only applies when custom icon widgets are not provided.
   final Color iconColor;
@@ -286,6 +289,7 @@ class ProfileImageViewerConfig {
     this.editIcon,
     this.shareIcon,
     this.saveIcon,
+    this.infoIcon,
     this.iconColor = Colors.white,
     this.onAnalyticsEvent,
     this.appBarBuilder,
@@ -373,6 +377,7 @@ class ProfileImageViewerConfig {
     Widget? editIcon,
     Widget? shareIcon,
     Widget? saveIcon,
+    Widget? infoIcon,
     Color? iconColor,
     AnalyticsCallback? onAnalyticsEvent,
     PreferredSizeWidget? Function(BuildContext context, String title)?
@@ -446,6 +451,7 @@ class ProfileImageViewerConfig {
       editIcon: editIcon ?? this.editIcon,
       shareIcon: shareIcon ?? this.shareIcon,
       saveIcon: saveIcon ?? this.saveIcon,
+      infoIcon: infoIcon ?? this.infoIcon,
       iconColor: iconColor ?? this.iconColor,
       onAnalyticsEvent: onAnalyticsEvent ?? this.onAnalyticsEvent,
       appBarBuilder: appBarBuilder ?? this.appBarBuilder,
