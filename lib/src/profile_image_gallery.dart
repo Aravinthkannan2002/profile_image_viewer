@@ -392,7 +392,11 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
     final provider = _getImageProvider(image);
     if (provider == null || !mounted) return;
 
-    precacheImage(provider, context).then((_) {
+    precacheImage(
+      provider,
+      context,
+      onError: (_, __) {},
+    ).then((_) {
       if (mounted && !_loadedIndices.contains(index)) {
         setState(() => _loadedIndices.add(index));
       }
