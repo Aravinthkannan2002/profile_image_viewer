@@ -313,6 +313,7 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
   final FocusNode _focusNode = FocusNode();
   DateTime? _viewStartTime;
   ScrollController? _thumbnailController;
+  final Set<int> _loadedIndices = {};
 
   @override
   void initState() {
@@ -336,12 +337,13 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
       );
     }
 
-    // Precache adjacent images
-    if (widget.config.precacheImages) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    // Resolve current image and precache adjacent
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _resolveImage(_currentIndex);
+      if (widget.config.precacheImages) {
         _precacheImages();
-      });
-    }
+      }
+    });
 
     // Start slideshow if enabled
     if (widget.config.enableSlideshow) {
@@ -382,6 +384,19 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
 
   void _trackAnalytics(String event, Map<String, dynamic> data) {
     widget.config.onAnalyticsEvent?.call(event, data);
+  }
+
+  void _resolveImage(int index) {
+    if (_loadedIndices.contains(index)) return;
+    final image = widget.images[index];
+    final provider = _getImageProvider(image);
+    if (provider == null || !mounted) return;
+
+    precacheImage(provider, context).then((_) {
+      if (mounted && !_loadedIndices.contains(index)) {
+        setState(() => _loadedIndices.add(index));
+      }
+    }).catchError((_) {});
   }
 
   void _precacheImages() {
@@ -454,6 +469,7 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
     setState(() {
       _currentIndex = index;
     });
+    _resolveImage(index);
     widget.onPageChanged?.call(index);
     _trackAnalytics('page_change', {'index': index});
 
@@ -779,16 +795,7 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
               onPressed: _toggleSlideshow,
               tooltip: _isSlideshow ? 'Pause slideshow' : 'Start slideshow',
             ),
-          if (widget.onInfoTap != null)
-            IconButton(
-              icon: config.infoIcon ?? Icon(Icons.info_outline, color: config.iconColor),
-              onPressed: () {
-                _setResult('info');
-                widget.onInfoTap!(_currentIndex);
-              },
-              tooltip: 'Image info',
-            ),
-          if (widget.onSaveTap != null)
+          if (widget.onSaveTap != null && _loadedIndices.contains(_currentIndex))
             IconButton(
               icon: config.saveIcon ?? Icon(Icons.download, color: config.iconColor),
               onPressed: () {
@@ -796,6 +803,15 @@ class _ProfileImageGalleryState extends State<ProfileImageGallery> {
                 widget.onSaveTap!(_currentIndex);
               },
               tooltip: 'Save image',
+            ),
+          if (widget.onInfoTap != null && _loadedIndices.contains(_currentIndex))
+            IconButton(
+              icon: config.infoIcon ?? Icon(Icons.info_outline, color: config.iconColor),
+              onPressed: () {
+                _setResult('info');
+                widget.onInfoTap!(_currentIndex);
+              },
+              tooltip: 'Image info',
             ),
           if (widget.onEditTap != null)
             IconButton(
